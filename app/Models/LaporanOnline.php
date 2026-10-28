@@ -17,6 +17,5 @@ class LaporanOnline extends Model
         'deskripsi',
         'tanggal',
         'foto',
-        'status',
     ];
 }
