@@ -29,10 +29,6 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/laporan-online', [LaporanOnlineController::class, 'store']);
     Route::get('/laporan-online/{id}', [LaporanOnlineController::class, 'show']);
 
-    // ================= ADMIN ONLY =================
-    Route::put('/laporan-online/{id}', [LaporanOnlineController::class, 'update']);
-    Route::delete('/laporan-online/{id}', [LaporanOnlineController::class, 'destroy']);
-
     // ================= FOTO (protected) =================
     // Serve foto dari storage/app/private/public/foto (HANYA untuk user ter-autentikasi)
     Route::get('/foto/{filename}', function ($filename) {
@@ -50,4 +46,10 @@ Route::middleware('auth:sanctum')->group(function () {
         // Response::file akan otomatis mengatur Content-Type
         return Response::file($path);
     });
+});
+
+// ================= ADMIN ONLY =================
+Route::middleware(['auth:sanctum', 'admin'])->group(function () {
+    Route::put('/laporan-online/{id}', [LaporanOnlineController::class, 'update']);
+    Route::delete('/laporan-online/{id}', [LaporanOnlineController::class, 'destroy']);
 });
